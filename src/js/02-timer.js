@@ -24,7 +24,6 @@ flatpickr('#datetime-picker', {
     newDate = selectedDates[0].getTime();
     if (newDate < Date.now()) {
       onSetAttributeDisabled(ref.btn);
-      Notify.failure('Please choose a date in the future');
     } else {
       onRemoveAttributeDisabled(ref.btn);
     }
