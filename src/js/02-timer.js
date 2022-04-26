@@ -11,7 +11,6 @@ const ref = {
 onSetAttributeDisabled(ref.btn);
 let newDate = null;
 let intervalId = null;
-const mainObj = { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
 ref.btn.addEventListener('click', onTimerStart);
 
@@ -34,12 +33,13 @@ flatpickr('#datetime-picker', {
 function onTimerStart() {
   intervalId = setInterval(() => {
     let leftTime = convertMs(newDate - Date.now());
-    init(leftTime);
 
     if (newDate < Date.now()) {
       clearInterval(intervalId);
-      init(mainObj);
+      return init();
     }
+    init(leftTime);
+
     console.log(newDate, Date.now());
   }, 1000);
 }
@@ -60,11 +60,11 @@ function convertMs(ms) {
 function pad(value) {
   return String(value).padStart(2, 0);
 }
-function init({ days = 0, hours = 0, minutes = 0, seconds = 0 }) {
-  ref.daysEl.textContent = pad(days);
-  ref.hoursEl.textContent = pad(hours);
-  ref.minutesEl.textContent = pad(minutes);
-  ref.secondsEl.textContent = pad(seconds);
+function init(obj = { days: 0, hours: 0, minutes: 0, seconds: 0 }) {
+  ref.daysEl.textContent = pad(obj.days);
+  ref.hoursEl.textContent = pad(obj.hours);
+  ref.minutesEl.textContent = pad(obj.minutes);
+  ref.secondsEl.textContent = pad(obj.seconds);
 }
 function onSetAttributeDisabled(item) {
   item.setAttribute('disabled', 'disabled');

@@ -32,7 +32,7 @@ function onSubmitFn(e) {
   const step = Number(formData.get('step'));
   const amount = formData.get('amount');
   for (let i = 1; i <= amount; i += 1) {
-    delay += step;
     createPromise(i, delay);
+    delay += step;
   }
 }
